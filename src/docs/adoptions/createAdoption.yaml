@@ -1,0 +1,23 @@
+paths:
+  /api/adoptions:
+    post:
+      summary: Crear una nueva adopción
+      description: Create New Adoption
+      tags:
+        - Adoptions
+      requestBody:
+        required: true
+        description: Adoptión body
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/requestBody/adoptionBody"
+      responses:
+        201:
+          description: New adoption
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Adoptions"
+        500:
+          description: Error interno del servidor

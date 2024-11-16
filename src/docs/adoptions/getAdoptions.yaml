@@ -1,0 +1,16 @@
+paths:
+  /api/adoptions/all:
+    get:
+      summary: Obtener todas las adopción
+      description: Get all adoptions
+      tags:
+        - Adoptions
+      responses:
+        200:
+          description: Retorna un array de adopciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Adoptions"
+        500:
+          description: Error interno del servidor

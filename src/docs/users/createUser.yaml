@@ -1,0 +1,23 @@
+paths:
+  /api/users:
+    post:
+      summary: Crear un nuevo Usuario
+      description: Create New User
+      tags:
+        - Users
+      requestBody:
+        required: true
+        description: User Data
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/requestBody/userBody"
+      responses:
+        201:
+          description: New user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        500:
+          description: Error interno del servidor

@@ -1,0 +1,25 @@
+paths:
+  /api/adoptions/{id}:
+    delete:
+      summary: Eliminar adopción
+      description: Delete an adoption
+      tags:
+        - Adoptions
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Id adoption
+          schema:
+            type: string
+      responses:
+        200:
+          description: Delete adoption
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Adoptions"
+        404:
+          description: Mascota no encontrada
+        500:
+          description: Error interno del servidor

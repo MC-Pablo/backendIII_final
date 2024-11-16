@@ -1,0 +1,71 @@
+components:
+  schemas:
+    Users:
+      type: array
+      item:
+        properties:
+          _id: 
+            type: ObjectId
+            description: Id del ususario
+          name:
+            type: string
+            description: Nombre del usuario
+          surname:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          password: 
+            type: string
+            description: Hash de la contraseña del usuario
+          roles:
+            type: array
+            items:
+              type: string
+            description: Array de roles del usuario
+          pets:
+            type: array
+            items:
+              type: ObjectId
+            description: Imagen de la mascota
+      example:
+        id: 5f7e9f9b5f7e9f9b5f7e9f9b
+        name: Juan
+        surname: Perez
+        email: a@b.com
+        password: $2b$10$t1IdcrbV1Xfu73ZdvMxfF.B98tzbjj16.0TSlHjeAe9iXjskMYjZC
+        roles: ["USER"]
+        pets: [6f7e9f9b5f7e9f9b5f7e9f9a]  
+  requestBody:
+    userBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del usuario
+        surname:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email del usuario
+        password:
+          type: string
+          description: Constraseña ingresada por el usuario
+        roles:
+          type: array
+          item:
+            type: string
+          description: Roles del usuario
+        pets:
+            type: array
+            item:
+              type: string
+            description: Mascotas del usuario
+      example:
+        name: Juan
+        surname: Pérez
+        email: juanperez@algo.com
+        password: coder123
+        

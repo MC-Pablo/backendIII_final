@@ -1,0 +1,36 @@
+components:
+  schemas:
+    Adoptions:
+      type: array
+      item:
+        properties:
+          _id: 
+            type: ObjectId
+            description: Id de la adopción
+          owner:
+            type: string
+            description: ObjectId
+          pet:
+            type: string
+            description: ObjectId
+          adoptionDate:
+            type: string
+            description: Fecha de adopción
+      example:
+        id: 5f7e9f9b5f7e9f9b5f7e9f9b
+        owner: 1a7e9f9b5f7e9f9b5f7e9f9b
+        pet: 27fe9f9b5f7e9f9b5f7e9f9b
+        adoptionDate: 30-10-2010
+  requestBody:
+    adoptionBody:
+      type: object
+      properties:
+        oid:
+          type: string
+          description: ObjectId
+        pid:
+          type: string
+          description: ObjectId
+      example:
+        oid: 1a7e9f9b5f7e9f9b5f7e9f9b
+        pid: 27fe9f9b5f7e9f9b5f7e9f9b
