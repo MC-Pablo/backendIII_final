@@ -37,7 +37,7 @@ export default class PetsController {
       const petUpdateBody = req.body;
       const petId = req.params.pid;
       const result = await this.petService.update(petId, petUpdateBody);
-      res.send({ status: "success", message: "pet updated" });
+      res.send({ status: "success", payload: result, message: "pet updated" });
     } catch (error) {
       next(error);
     }
@@ -75,4 +75,4 @@ export default class PetsController {
       next(error);
     }
   };
-};
+}

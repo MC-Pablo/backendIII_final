@@ -14,7 +14,7 @@ export default class UserControllers {
   getAllUsers = async (req, res, next) => {
     try {
       const users = await this.userServices.getAll(req.params);
-      res.send({ status: "success", payload: users });
+      res.status(200).send({ status: "success", payload: users });
     } catch (error) {
       next(error);
     }
@@ -26,9 +26,8 @@ export default class UserControllers {
 
       const user = await this.userServices.findOneById(userId);
 
-      res.send({ status: "success", payload: user });
+      res.status(200).send({ status: "success", payload: user });
     } catch (error) {
-      console.log(`Error: ${error.message}`);
       next(error);
     }
   };
@@ -52,7 +51,7 @@ export default class UserControllers {
   deleteUser = async (req, res) => {
     const userId = req.params.uid;
     const result = await this.userServices.remove(userId);
-    res.send({ status: "success", message: "User deleted" });
+    res.status(400).send({ status: "success", message: "User deleted" });
   };
 
   createUser = async (req, res, next) => {
@@ -60,7 +59,7 @@ export default class UserControllers {
       const newUser = req.body;
       const user = await this.userServices.createUser(req.body);
       if (!user) throw new Error("Faltan datos");
-      res.send({ status: "success", message: "User created" });
+      res.status(201).send({ status: "success", message: "User created" });
     } catch (error) {
       next(error);
     }
