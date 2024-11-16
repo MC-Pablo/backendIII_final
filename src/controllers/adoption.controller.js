@@ -26,6 +26,7 @@ export default class AdoptionController {
   async createAdoption(req, res) {
     try {
       const response = await this.#adoptionService.createAdoption(req.body);
+
       res.status(201).send({
         status: "success",
         payload: response,
@@ -40,6 +41,7 @@ export default class AdoptionController {
     try {
       const { id } = req.params;
       const response = await this.#adoptionService.deleteOneById(id);
+
       res.status(200).send({
         status: "success",
         payload: response,
@@ -47,6 +49,6 @@ export default class AdoptionController {
       });
     } catch (error) {
       next(error);
-    };
-  };
-};
+    }
+  }
+}
