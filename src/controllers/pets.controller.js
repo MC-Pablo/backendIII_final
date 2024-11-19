@@ -11,7 +11,7 @@ export default class PetsController {
   getAllPets = async (req, res, next) => {
     try {
       const pets = await this.petService.getAll();
-      res.send({ status: "success", payload: pets });
+      res.status(200).send({ status: "success", payload: pets });
     } catch (error) {
       next(error);
     }
@@ -37,7 +37,7 @@ export default class PetsController {
       const petUpdateBody = req.body;
       const petId = req.params.pid;
       const result = await this.petService.update(petId, petUpdateBody);
-      res.send({ status: "success", payload: result, message: "pet updated" });
+      res.status(201).send({ status: "success", payload: result, message: "pet updated" });
     } catch (error) {
       next(error);
     }
@@ -47,7 +47,7 @@ export default class PetsController {
     try {
       const petId = req.params.pid;
       const result = await this.petService.remove(petId);
-      res.send({ status: "success", message: "pet deleted" });
+      res.status (400).send({ status: "success", payload: result, message: "pet deleted" });
     } catch (error) {
       next(error);
     }
@@ -70,7 +70,7 @@ export default class PetsController {
       });
       console.log(pet);
       const result = await petsService.create(pet);
-      res.send({ status: "success", payload: result });
+      res.status (201).send({ status: "success", payload: result });
     } catch (error) {
       next(error);
     }

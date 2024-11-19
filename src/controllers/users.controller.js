@@ -1,5 +1,4 @@
 import UserServices from "../services/user.services.js";
-
 export default class UserControllers {
   constructor() {
     this.userServices = new UserServices();
@@ -22,8 +21,9 @@ export default class UserControllers {
 
   getUserById = async (req, res, next) => {
     try {
+      console.log (req.params.uid)
       const userId = req.params.uid;
-
+      
       const user = await this.userServices.findOneById(userId);
 
       res.status(200).send({ status: "success", payload: user });
@@ -43,25 +43,30 @@ export default class UserControllers {
           .send({ status: "error", error: "User not found" });
 
       const result = await this.userServices.updateOneById(userId, updateBody);
-      res.send({ status: "success", message: "User updated" });
+      res.send({ status: "success", payload: result, message: "User updated" });
     } catch (error) {
       next(error);
     }
   };
-  deleteUser = async (req, res) => {
+  deleteUser = async (req, res, next) => {
+    try {
     const userId = req.params.uid;
-    const result = await this.userServices.remove(userId);
-    res.status(400).send({ status: "success", message: "User deleted" });
+    const result = await this.userServices.deleteOneById(userId);
+    res.status(400).send({ status: "success", payload: result, message: "User deleted" });
+  }catch (error){
+    next (error)
   };
-
+}
   createUser = async (req, res, next) => {
     try {
       const newUser = req.body;
       const user = await this.userServices.createUser(req.body);
       if (!user) throw new Error("Faltan datos");
-      res.status(201).send({ status: "success", message: "User created" });
+      res
+        .status(201)
+        .send({ status: "success", payload: user, message: "User created" });
     } catch (error) {
       next(error);
-    }
-  };
+    }
+  };
 }

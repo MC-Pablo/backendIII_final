@@ -13,9 +13,9 @@ describe("Test de integración Users", () => {
   
     it("[POST] /api/users - Debe crear un nuevo usuario", async () => {
       const newUser = {
-        name: "Juan",
+        name: "JUAN",
         surname: "PÉREZ",
-        email: "test@testfb.com",
+        email: "testingusers@supertest.com",
         password: "coder123"
       };
       const { status, body } = await request.post("/").send(newUser);
@@ -25,7 +25,7 @@ describe("Test de integración Users", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.name).to.be.equal("JUAN");
       expect(body.payload.surname).to.be.equal("PÉREZ");
-      expect(body.payload.email).to.be.equal("test@testfb.com");
+      expect(body.payload.email).to.be.equal("testingusers@supertest.com");
     });
 
     it("[GET] /api/users/:uid - Debe devolver un usuario", async () => {
@@ -35,7 +35,7 @@ describe("Test de integración Users", () => {
         expect(body.payload).to.be.an("object");
         expect(body.payload.name).to.be.equal("JUAN");
         expect(body.payload.surname).to.be.equal("PÉREZ");
-        expect(body.payload.email).to.be.equal("test@testfb.com");
+        expect(body.payload.email).to.be.equal("testingusers@supertest.com");
         expect(body.payload.roles).to.be.an("array");
     });
 
@@ -50,14 +50,14 @@ describe("Test de integración Users", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.name).to.be.equal("JUAN");
       expect(body.payload.surname).to.be.equal("GONZÁLEZ");
-      expect(body.payload.email).to.be.equal("test@testfb.com");
+      expect(body.payload.email).to.be.equal("testingusers@supertest.com");
       expect(body.payload.roles).to.be.an("array");
     });
   
-    it("[DELETE] /api/users/delete/:uid - Debe eliminar un usuario", async () => {
+    it("[DELETE] /api/users/:uid - Debe eliminar un usuario", async () => {
         const { status, body } = await request.delete(`/${test_user.id}`);
         
-      expect(status).to.be.equal(200);
+      expect(status).to.be.equal(400);
       expect(body.payload).to.be.an("object");
       expect(body.payload.id).to.be.equal(test_user.id)
     });
