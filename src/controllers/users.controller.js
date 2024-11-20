@@ -1,18 +1,23 @@
-import UserServices from "../services/user.services.js";
+import UserService from "../services/user.services.js"
+
 export default class UserControllers {
+  #userService
   constructor() {
-    this.userServices = new UserServices();
+    this.#userService = new UserService();
   }
 
-  createUserMock = async (req, res) => {
-    const users = await this.userServices.createMocks();
-
-    res.status(201).json({ status: "ok", users });
+  createUserMock = async (req, res, next) => {
+    try {
+      const mocksUsers = await this.#userService.createMocks();
+      res.status(201).send({ status: "success", payload: mocksUsers });
+    } catch (error) {
+      next(error);
+    }
   };
 
   getAllUsers = async (req, res, next) => {
     try {
-      const users = await this.userServices.getAll(req.params);
+      const users = await this.#userService.getAll(req.params);
       res.status(200).send({ status: "success", payload: users });
     } catch (error) {
       next(error);
@@ -21,10 +26,8 @@ export default class UserControllers {
 
   getUserById = async (req, res, next) => {
     try {
-      console.log (req.params.uid)
       const userId = req.params.uid;
-      
-      const user = await this.userServices.findOneById(userId);
+      const user = await this.#userService.findOneById(userId);
 
       res.status(200).send({ status: "success", payload: user });
     } catch (error) {
@@ -36,13 +39,13 @@ export default class UserControllers {
     try {
       const updateBody = req.body;
       const userId = req.params.uid;
-      const user = await this.userServices.findOneById(userId);
+      const user = await this.#userService.findOneById(userId);
       if (!user)
         return res
           .status(404)
           .send({ status: "error", error: "User not found" });
 
-      const result = await this.userServices.updateOneById(userId, updateBody);
+      const result = await this.#userService.updateOneById(userId, updateBody);
       res.send({ status: "success", payload: result, message: "User updated" });
     } catch (error) {
       next(error);
@@ -50,17 +53,19 @@ export default class UserControllers {
   };
   deleteUser = async (req, res, next) => {
     try {
-    const userId = req.params.uid;
-    const result = await this.userServices.deleteOneById(userId);
-    res.status(400).send({ status: "success", payload: result, message: "User deleted" });
-  }catch (error){
-    next (error)
+      const userId = req.params.uid;
+      const result = await this.#userService.deleteOneById(userId);
+      res
+        .status(400)
+        .send({ status: "success", payload: result, message: "User deleted" });
+    } catch (error) {
+      next(error);
+    }
   };
-}
   createUser = async (req, res, next) => {
     try {
       const newUser = req.body;
-      const user = await this.userServices.createUser(req.body);
+      const user = await this.#userService.createUser(req.body);
       if (!user) throw new Error("Faltan datos");
       res
         .status(201)

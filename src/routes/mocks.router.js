@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generateUsersMock } from "../mocks/user.mock.js";
 import UserServices from "../services/user.services.js";
-import { PetServices } from "../services/pet.services.js";
+import  PetService  from "../services/pet.services.js";
 import { generatePetsMock } from "../mocks/pet.mock.js";
 
 const userServices = new UserServices();
@@ -21,7 +21,7 @@ usersMocksRouter.get("/mockingusers", async (req, res, next) => {
 
 export default usersMocksRouter;
 
-const petServices = new PetServices();
+const petServices = new PetService();
 const petsMocksRouter = Router();
 
 petsMocksRouter.get("/mockingpets", async (req, res, next) => {

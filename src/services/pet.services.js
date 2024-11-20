@@ -1,41 +1,37 @@
-import Pet from "../daos/pet.dao.js";
-import { generatePetsMock } from "../mocks/pet.mock.js";
+import PetRepository from "../repositories/pet.repository.js";
+import { NOT_FOUND_ID } from "../constants/messages.constant.js";
 
-export class PetServices {
+export default class PetServices {
+  #petRepository;
   constructor() {
-    this.petDao = new Pet();
+    this.#petRepository = new PetRepository();
   }
-  async getAll() {
-    const pets = await this.petDao.get();
-    return pets;
+
+  async getAll(params) {
+    return await this.#petRepository.getAll(params);
   }
-  async getById(id) {
-    const pet = await this.petDao.getBy(id);
-    if (!pet) throw customError.notFoundError(`Pet id ${id} not found`);
+
+  async findOneById(id) {
+    const pet = await this.#petRepository.getOneById(id);
+    if (!pet) {
+      throw new Error(NOT_FOUND_ID);
+    }
     return pet;
   }
 
-  async create(data) {
-    const pet = await this.petDao.save(data);
-    return pet;
-  }
-  async createMany(data) {
-    const pets = await this.petDao.saveMany(data);
-    return pets;
+  async createPet(data) {
+    return await this.#petRepository.save(data);
   }
 
-  async update(id, data) {
-    const pet = await this.petDao.update(id, data);
-    return pet;
+  async updateOneById(id, data) {
+    const pet = await this.#petRepository.getOneById(id);
+    const updatedValues = { ...pet, ...data };
+    return await this.#petRepository.save(updatedValues);
   }
 
-  async remove(id) {
-    await this.petDao.delete(id);
-    return "ok";
+  async deleteOneById(id) {
+    return await this.#petRepository.deleteOneById(id);
   }
-  async createMocks() {
-    const pets = generatePetsMock(10);
-    const petsDb = await this.petDao.saveMany(pets);
-    return petsDb;
-  }
-};
+
+
+}

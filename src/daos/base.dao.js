@@ -1,5 +1,6 @@
 import { NOT_FOUND } from "../constants/messages.constant.js";
 
+
 export default class BaseDAO {
   #model;
 
