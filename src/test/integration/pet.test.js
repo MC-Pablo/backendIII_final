@@ -1,4 +1,4 @@
- import { expect } from "chai";
+import { expect } from "chai";
 import supertest from "supertest";
 
 const request = supertest("http://localhost:8080/api/pets");
@@ -27,7 +27,7 @@ describe("Test de integración Pets", () => {
       expect(body.payload.adopted).to.be.equal(false);
     });
 
-    it("[GET] /api/pets/:id - Debe retornar una mascota por su id", async () => {
+    it("[GET] /api/pets/:pid - Debe retornar una mascota por su id", async () => {
         const { status, body } = await request.get(`/${test_pet.id}`)
         expect(status).to.be.equal(200);
         expect(body.payload).to.be.an("object");

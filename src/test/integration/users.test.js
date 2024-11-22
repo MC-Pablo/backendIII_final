@@ -1,4 +1,4 @@
-/* import { expect } from "chai";
+ /* import { expect } from "chai";
 import supertest from "supertest";
 
 const request = supertest("http://localhost:8080/api/users");
@@ -15,7 +15,7 @@ describe("Test de integración Users", () => {
       const newUser = {
         name: "JUAN",
         surname: "PÉREZ",
-        email: "testingusers1@supertest.com",
+        email: "testingusers2@supertest.com",
         password: "coder123"
       };
       const { status, body } = await request.post("/").send(newUser);
@@ -25,7 +25,7 @@ describe("Test de integración Users", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.name).to.be.equal("JUAN");
       expect(body.payload.surname).to.be.equal("PÉREZ");
-      expect(body.payload.email).to.be.equal("testingusers1@supertest.com");
+      expect(body.payload.email).to.be.equal("testingusers2@supertest.com");
     });
 
     it("[GET] /api/users/:uid - Debe devolver un usuario", async () => {
@@ -35,7 +35,7 @@ describe("Test de integración Users", () => {
         expect(body.payload).to.be.an("object");
         expect(body.payload.name).to.be.equal("JUAN");
         expect(body.payload.surname).to.be.equal("PÉREZ");
-        expect(body.payload.email).to.be.equal("testingusers1@supertest.com");
+        expect(body.payload.email).to.be.equal("testingusers2@supertest.com");
         expect(body.payload.roles).to.be.an("array");
     });
 
@@ -50,7 +50,7 @@ describe("Test de integración Users", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.name).to.be.equal("JUAN");
       expect(body.payload.surname).to.be.equal("GONZÁLEZ");
-      expect(body.payload.email).to.be.equal("testingusers1@supertest.com");
+      expect(body.payload.email).to.be.equal("testingusers2@supertest.com");
       expect(body.payload.roles).to.be.an("array");
     });
   

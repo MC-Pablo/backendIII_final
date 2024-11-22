@@ -1,13 +1,15 @@
 import PetRepository from "../repositories/pet.repository.js";
 import { NOT_FOUND_ID } from "../constants/messages.constant.js";
 
-export default class PetServices {
+export class PetServices {
   #petRepository;
   constructor() {
     this.#petRepository = new PetRepository();
+    console.log("Service: petRepository instanciado", this.#petRepository)
   }
 
   async getAll(params) {
+    console.log("Service: Inside getAll, params:", params);
     return await this.#petRepository.getAll(params);
   }
 
@@ -32,6 +34,5 @@ export default class PetServices {
   async deleteOneById(id) {
     return await this.#petRepository.deleteOneById(id);
   }
-
 
 }

@@ -1,29 +1,38 @@
-import { Schema, model } from "mongoose";
-import mongoose from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+import  paginate  from "mongoose-paginate-v2";
 
-
-
-const petSchema = new Schema({
-    name:{
-        type:String,
-        required:true,
+const petSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "El nombre de la mascota es obligatorio"],
     },
-    specie:{
-        type:String,
-        required:true
+    specie: {
+      type: String,
+      required: [true, "La especie de la mascota es obligatoria"],
     },
-    birthDate:Date,
-    adopted:{
-        type:Boolean,
-        default:false
+    adopted: {
+      type: Boolean,
+      default: false,
     },
-    owner:{
-        type:mongoose.SchemaTypes.ObjectId,
-        ref:'Users'
+    birthDate: {
+      type: Date,
     },
-    image:String
-})
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "users",
+    },
+    thumbnail: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const petModel = model("pets", petSchema);
+petSchema.plugin(paginate);
 
-export default petModel;
+const Pet = model("pets", petSchema);
+
+export default Pet;
