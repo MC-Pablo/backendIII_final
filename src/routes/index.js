@@ -10,6 +10,6 @@ indexApiRouter.use("/api/users", usersRouter);
 indexApiRouter.use("/api/sessions", sessionsRouter);
 indexApiRouter.use("/api/pets", petsRouter);
 indexApiRouter.use("/api/mocks", mocksRouter);
-indexApiRouter.use("api/adoptions", adoptionRouter);
+indexApiRouter.use("/api/adoptions", adoptionRouter);
 
 export default indexApiRouter;

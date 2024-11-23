@@ -1,33 +1,34 @@
 import { PetDTO } from "../dtos/pet.dto.js";
 import __dirname from "../utils/index.js";
-import { PetServices } from "../services/pet.services.js";
+import PetServices from "../services/pet.services.js";
 
 export default class PetController {
-  petServices;
+  #petServices;
   constructor() {
-    console.log("Controller: Instantiating PetController");
-    this.petServices = new PetServices();
-    console.log("Controller: PetServices instantiated:", this.petServices); 
+    //console.log("Controller: Instantiating PetController");
+    this.#petServices = new PetServices();
+    this.getAllPets = this.getAllPets.bind(this); this.createPet = this.createPet.bind(this); this.getOneById = this.getOneById.bind(this); this.updateOneById = this.updateOneById.bind(this); this.deleteOneById = this.deleteOneById.bind(this); this.createPetWithImage = this.createPetWithImage.bind(this)
+    //console.log("Controller: #petServices instantiated:", this.#petServices); 
   }
 
   async getAllPets(req, res, next) {
-   
-    console.log("Controller: Entering getAll method in PetController");
-    console.log("Controller: Calling PetServices.getAll with params:", req.params);
+    //console.log("Controller: Entering getAll method in PetController");
+    //console.log("Controller: Calling #petServices.getAll with params:", req.params);
     try {
-      const pets = await this.petServices.getAll(req.params);
-      console.log("Controller: Pets fetched from service:", pets);
+      const pets = await this.#petServices.getAll(req.params);
+     
+      //console.log("Controller: Pets fetched from service:", pets);
       res.status(200).send({ status: "success", payload: pets });
      
     } catch (error) {
-      console.error("Controller: Error in getAll method", error);
+      //console.error("Controller: Error in getAll method", error);
       next(error);
     }
   }
 
   async createPet(req, res, next) {
     try {
-      const pet = await this.petServices.createPet(req.body);
+      const pet = await this.#petServices.createPet(req.body);
       res
         .status(201)
         .send({ status: "success", payload: pet, message: "Pet created" });
@@ -39,7 +40,7 @@ export default class PetController {
   async getOneById(req, res, next) {
     try {
       const petId = req.params.pid;
-      const pet = await this.petServices.findOneById(petId);
+      const pet = await this.#petServices.findOneById(petId);
       res.status(200).send({ status: "success", payload: pet });
     } catch (error) {
       next(error);
@@ -49,7 +50,7 @@ export default class PetController {
   async updateOneById(req, res, next) {
     try {
       const petId = req.params.pid;
-      const pet = await this.petServices.updateOneById(petId);
+      const pet = await this.#petServices.updateOneById(petId, req.body);
       res.status(201).send({ status: "success", payload: pet });
     } catch (error) {
       next(error);
@@ -59,8 +60,7 @@ export default class PetController {
   async deleteOneById(req, res, next) {
     try {
       const petId = req.params.pid;
-      const response = await this.petServices.deleteOneById(petId);
-      res.sendSuccess200(response);
+      const response = await this.#petServices.deleteOneById(petId);
       res.status(200).send({ status: "success", payload: response });
     } catch (error) {
       next(error);
@@ -75,15 +75,15 @@ export default class PetController {
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
-      console.log(file);
+     
       const pet = PetDTO.getPetInputFrom({
         name,
         specie,
         birthDate,
         image: `${__dirname}/../public/img/${file.filename}`,
       });
-      console.log(pet);
-      const result = await this.petServices.createPet(pet);
+      
+      const result = await this.#petServices.createPet(pet);
       res.status(201).send({ status: "success", payload: result });
     } catch (error) {
       next(error);

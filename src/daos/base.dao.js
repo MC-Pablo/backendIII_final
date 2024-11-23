@@ -82,7 +82,9 @@ export default class BaseDAO {
   }
 
   async updateField(data, field, op) {
+
     const object = await this.getOneById(data.id, field);
+    
     if (!object) {
       throw new Error(NOT_FOUND);
     }
@@ -94,7 +96,7 @@ export default class BaseDAO {
         object.pets.push(data.pid);
         return await object.save();
       case "pets-remove":
-        object.pets = object.pets.filter((p) => p.id.toString() != data.pid);
+        object.pets = object.pets.filter((p) => p.id != data.pid);
         return await object.save();
       case "owner-add":
         object.owner = data.oid;

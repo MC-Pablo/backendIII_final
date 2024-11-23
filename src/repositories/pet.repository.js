@@ -10,11 +10,11 @@ export default class PetRepository{
         const factory = new FactoryDAO();
         this.#petDAO = factory.petDAO();
         this.#petDTO = new PetDTO()
-        
     };
     
     async getAll(params){
-        console.log("Repository: Inside getAll with params:", params);
+    
+      
 
         params.populate = "owner";
 
@@ -30,12 +30,13 @@ export default class PetRepository{
         }
        
         const filters = $and.length > 0 ? {$and} : {};
-        console.log("Repository: filters applied:", filters);
+        //console.log("Repository: filters applied:", filters);
         const pets = await this.#petDAO.getAll(filters, params);
-        console.log("Repository: Pets fetched:", pets);
-        console.log("Repository: Pets fetched from DAO:", pets);
+        //console.log("Repository: Pets fetched:", pets);
+        //console.log("Repository: Pets fetched from DAO:", pets);
         const formatedPets = pets?.docs?.map((pet) => this.#petDTO.model(pet))
         pets.docs = formatedPets;
+      
         return pets
     };
 
@@ -49,7 +50,9 @@ export default class PetRepository{
 
     async save(data){
         const formatedData = this.#petDTO.data(data);
+       
         const pet = await this.#petDAO.save(formatedData);
+       
         const formatedPet = this.#petDTO.model(pet);
      
         return formatedPet;

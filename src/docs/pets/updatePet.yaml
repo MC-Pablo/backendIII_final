@@ -1,5 +1,5 @@
 paths:
-  /api/pets/{id}:
+  /api/pets/update/{id}:
     put:
       summary: Actualizar mascota
       description: Update a pet

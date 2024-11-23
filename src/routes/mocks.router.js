@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generateUsersMock } from "../mocks/user.mock.js";
 import UserServices from "../services/user.services.js";
-import { PetServices } from "../services/pet.services.js";
+import PetServices from "../services/pet.services.js";
 import { generatePetsMock } from "../mocks/pet.mock.js";
 
 const userServices = new UserServices();

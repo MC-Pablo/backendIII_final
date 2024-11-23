@@ -10,9 +10,7 @@ export class PetDTO {
       name: model.name,
       specie: model.specie,
       birthDate:
-        model.birthDate instanceof Date
-          ? moment(model.birthDate).format("DD-MM-YYYY")
-          : model.birthDate,
+        model.birthDate, 
       adopted: model.adopted,
       owner: model?.owner
         ? {

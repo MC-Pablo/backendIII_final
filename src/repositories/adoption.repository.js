@@ -45,6 +45,7 @@ export default class AdoptionRepository {
   }
 
   async createAdoption(data) {
+    
     const formatedData = this.#adoptionDTO.data(data);
     const adoption = await this.#adoptionDAO.save(formatedData);
     const userData = { id: adoption.owner, pid: adoption.pet };
@@ -65,6 +66,7 @@ export default class AdoptionRepository {
       "ownerDetails",
       "petDetails",
     ]);
+   
     if (!adoption) throw new Error(NOT_FOUND_ID);
     const userData = { id: adoption.owner, pid: adoption.pet };
     const petData = { id: adoption.pet, oid: adoption.owner };
@@ -73,6 +75,7 @@ export default class AdoptionRepository {
       "pets",
       "remove"
     );
+    console.log(currentUser)
     const currentPet = await this.#petDAO.updateField(
       petData,
       "owner",

@@ -36,12 +36,15 @@ describe("Test de integración Pets", () => {
         expect(body.payload.adopted).to.be.equal(false);
     })
 
-    it("[PUT] /api/pets/:pid - Debe actualizar una mascota", async () => {
+    it("[PUT] /api/pets/update/:pid - Debe actualizar una mascota", async () => {
       const newPet = {
         specie: "Perro",
       };
+  console.log(newPet);
   
-      const { status, body } = await request.put(`/${test_pet.id}`).send(newPet);
+      const { status, body } = await request.put(`/update/${test_pet.id}`).send(newPet);
+      console.log (body)
+
   
       expect(status).to.be.equal(201);
       expect(body.payload).to.be.an("object");
@@ -53,7 +56,7 @@ describe("Test de integración Pets", () => {
     it("[DELETE] /api/pets/:pid - Debe eliminar una mascota por su id", async () => {
       const { status, body } = await request.delete(`/${test_pet.id}`);
       
-      expect(status).to.be.equal(400);
+      expect(status).to.be.equal(200);
       expect(body.payload).to.be.an("object");
       expect(body.payload.id).to.be.equal(test_pet.id)
     });

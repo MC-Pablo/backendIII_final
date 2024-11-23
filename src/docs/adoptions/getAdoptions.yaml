@@ -1,5 +1,5 @@
 paths:
-  /api/adoptions/all:
+  /api/adoptions:
     get:
       summary: Obtener todas las adopción
       description: Get all adoptions

@@ -2,7 +2,6 @@ import { Router } from "express";
 import AdoptionController from "../../controllers/adoption.controller.js";
 
 
-
 const adoptionRouter = Router ();
 const adoptionController = new AdoptionController();
 

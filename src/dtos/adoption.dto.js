@@ -11,6 +11,7 @@ export class AdoptionDTO {
     this.#petDTO = new PetDTO();
   }
   model(adoption) {
+    
     const formatedAdoption = {
       id: adoption.id || adoption._id.toString(),
       owner: this.#userDTO.adoption(adoption.ownerDetails),
@@ -22,6 +23,7 @@ export class AdoptionDTO {
   }
 
   data(data) {
+    
     if (!data?.oid || !data?.pid) throw new Error(BAD_REQUEST);
     return {
       owner: data.oid,
