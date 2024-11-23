@@ -1,5 +1,6 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
+const bcrypt = bcryptjs;
 // Crea un hash de una contraseña proporcionada
 export const createHash = (password) => {
     // Convierte el tipo de dato de la contraseña en String (requerido para hash)
