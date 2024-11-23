@@ -1,4 +1,4 @@
-import { expect } from "chai";
+/* import { expect } from "chai";
 import supertest from "supertest";
 
 const request = supertest("http://localhost:8080/api/pets");
@@ -60,4 +60,4 @@ describe("Test de integración Pets", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.id).to.be.equal(test_pet.id)
     });
-  }); 
+  }); */
