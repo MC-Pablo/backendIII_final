@@ -1,4 +1,4 @@
-/* import { expect } from "chai";
+import { expect } from "chai";
 import supertest from "supertest";
 
 const request = supertest("http://localhost:8080/api/pets");
@@ -40,10 +40,10 @@ describe("Test de integración Pets", () => {
       const newPet = {
         specie: "Perro",
       };
-  console.log(newPet);
+
   
       const { status, body } = await request.put(`/update/${test_pet.id}`).send(newPet);
-      console.log (body)
+  
 
   
       expect(status).to.be.equal(201);
@@ -60,4 +60,4 @@ describe("Test de integración Pets", () => {
       expect(body.payload).to.be.an("object");
       expect(body.payload.id).to.be.equal(test_pet.id)
     });
-  }); */
+  }); 

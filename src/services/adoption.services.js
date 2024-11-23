@@ -19,7 +19,7 @@ export default class AdoptionService{
     };
 
     async findOneById(id){
-        console.log(id)
+     
         const adoption = await this.#adoptionRepository.getOneById(id);
         if(!adoption){
             throw new Error(NOT_FOUND_ID);
@@ -28,10 +28,10 @@ export default class AdoptionService{
     };
 
     async createAdoption(data){
-        console.log(data)
+     
         const pet = await this.#petRepository.getOneById(data.pid)
         const user = await this.#userRepository.getOneById(data.oid)
-        console.log(pet,user)
+      
         if(!pet || !user) throw new Error(NOT_FOUND_ID)
         if(pet.adopted) throw new Error(ERROR_ALREADY_ADOPTED)
         return await this.#adoptionRepository.createAdoption(data);

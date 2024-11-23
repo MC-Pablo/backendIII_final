@@ -5,13 +5,12 @@ export default class PetServices {
   #petRepository;
   constructor() {
     this.#petRepository = new PetRepository();
-    //console.log("Service: petRepository instanciado", this.#petRepository)
+    
   }
 
   async getAll(params) {
     const pet = await this.#petRepository.getAll(params);
  
-    //console.log("Service: Inside getAll, params:", params);
     return pet
   }
 
@@ -33,7 +32,7 @@ export default class PetServices {
     const updatedValues = { ...pet, ...data };
   
     const petUpdated = await this.#petRepository.save(updatedValues);
-console.log (petUpdated)
+
     return petUpdated
   }
 

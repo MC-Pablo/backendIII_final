@@ -5,7 +5,7 @@ import PetController from "../../controllers/pets.controller.js";
 const petsController = new PetController();
 const petsRouter = Router();
 
-//console.log("PetController instance in routes:", petsController);
+
 
 petsRouter.get("/", petsController.getAllPets);
 

@@ -71,7 +71,7 @@ describe("Test de integración de Adoptions", () => {
     
         expect(status).to.be.equal(200);
         expect(body.payload).to.be.an("object");
-        expect(body.payload.pets[0]._id).to.be.equal(pet.id);
+        expect(body.payload.pets[0]).to.be.equal(pet.id);
     });
 
     it("[GET] /api/pets/:pid - Debe retornar la mascota modificada con adopted true y con el owner cargado", async () => {
@@ -136,9 +136,9 @@ describe("Test de integración de Adoptions", () => {
         expect(body.payload.id).to.be.equal(pet.id)
       });
 
-      it("[DELETE] /api/users/delete/:uid - Debe eliminar un usuario", async () => {
+      it("[DELETE] /api/users/:uid - Debe eliminar un usuario", async () => {
 
-        const { status, body } = await userRequest.delete(`/delete/${user.id}`);
+        const { status, body } = await userRequest.delete(`/${user.id}`);
         
       expect(status).to.be.equal(200);
       expect(body.payload).to.be.an("object");

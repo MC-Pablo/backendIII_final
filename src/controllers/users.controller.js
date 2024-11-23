@@ -56,7 +56,7 @@ export default class UserControllers {
       const userId = req.params.uid;
       const result = await this.#userService.deleteOneById(userId);
       res
-        .status(400)
+        .status(200)
         .send({ status: "success", payload: result, message: "User deleted" });
     } catch (error) {
       next(error);

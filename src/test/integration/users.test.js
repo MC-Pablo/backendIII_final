@@ -1,4 +1,4 @@
- /* import { expect } from "chai";
+import { expect } from "chai";
 import supertest from "supertest";
 
 const request = supertest("http://localhost:8080/api/users");
@@ -20,7 +20,7 @@ describe("Test de integración Users", () => {
       };
       const { status, body } = await request.post("/").send(newUser);
       test_user = body.payload;
-      console.log(body);
+   
       expect(status).to.be.equal(201);
       expect(body.payload).to.be.an("object");
       expect(body.payload.name).to.be.equal("JUAN");
@@ -57,8 +57,8 @@ describe("Test de integración Users", () => {
     it("[DELETE] /api/users/:uid - Debe eliminar un usuario", async () => {
         const { status, body } = await request.delete(`/${test_user.id}`);
         
-      expect(status).to.be.equal(400);
+      expect(status).to.be.equal(200);
       expect(body.payload).to.be.an("object");
       expect(body.payload.id).to.be.equal(test_user.id)
     });
-  }); */
+  });

@@ -5,23 +5,22 @@ import PetServices from "../services/pet.services.js";
 export default class PetController {
   #petServices;
   constructor() {
-    //console.log("Controller: Instantiating PetController");
+   
     this.#petServices = new PetServices();
     this.getAllPets = this.getAllPets.bind(this); this.createPet = this.createPet.bind(this); this.getOneById = this.getOneById.bind(this); this.updateOneById = this.updateOneById.bind(this); this.deleteOneById = this.deleteOneById.bind(this); this.createPetWithImage = this.createPetWithImage.bind(this)
-    //console.log("Controller: #petServices instantiated:", this.#petServices); 
+    
   }
 
   async getAllPets(req, res, next) {
-    //console.log("Controller: Entering getAll method in PetController");
-    //console.log("Controller: Calling #petServices.getAll with params:", req.params);
+  
     try {
       const pets = await this.#petServices.getAll(req.params);
      
-      //console.log("Controller: Pets fetched from service:", pets);
+     
       res.status(200).send({ status: "success", payload: pets });
      
     } catch (error) {
-      //console.error("Controller: Error in getAll method", error);
+  
       next(error);
     }
   }
