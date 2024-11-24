@@ -14,8 +14,6 @@ export default class PetRepository{
     
     async getAll(params){
     
-      
-
         params.populate = "owner";
 
         const $and = [];
