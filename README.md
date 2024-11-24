@@ -1,25 +1,25 @@
 # backend_III_entregaFinal
 
-API ADOPTION
+*API ADOPTION*
 
 Autor: Conturso, Pablo
 Fecha: Noviembre, 2024
 
-DESCRIPCION
+*DESCRIPCION*
 API REST elaborada en el marco de la carrera Desarrollo Web Fullstack de Coderhouse, para el módulo Programación Backend III: Testing y Escalabilidad Backend.
 
-DOCUMENTACION
+*DOCUMENTACION*
 
 Accecsible desde la direccion http://localhost:8080/api-docs. 
 Utilizando SWAGGER UI permite a los usuarios probar los diferentes endpoints.
 
-INICIALIZACION DE LA API
+*INICIALIZACION DE LA API*
 
 Mediante los comandos:
 npm run start
 npm run dev
 
-TESTEO DE FUNCIONALIDADES
+*TESTEO DE FUNCIONALIDADES*
 
 Mediante comando:
 npm run test
@@ -53,11 +53,11 @@ Comprueba que al eliminar la adopción se modifique la mascota
 Elimina la mascota
 Elimina el usuario
 
-VARIABLES DE ENTORNO
+*VARIABLES DE ENTORNO*
 
 Se adjunta archivo ".example.env" con las variables a completar para el correcto funcionamiento.
 
-ENLACE
+*ENLACE*
 
 Github: https://github.com/MC-Pablo/backendIII_final.git
 
