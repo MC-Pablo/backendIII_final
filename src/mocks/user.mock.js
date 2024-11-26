@@ -6,8 +6,8 @@ export const generateUsersMock = async (amount) => {
   const users = [];
   for (let i = 0; i < amount; i++) {
     const user = {
-      first_name: faker.person.firstName(),
-      last_name: faker.person.lastName(),
+      name: faker.person.firstName(),
+      surname: faker.person.lastName(),
       email: faker.internet.email(),
       password: await createHash("coder123"),
       role: [USER],

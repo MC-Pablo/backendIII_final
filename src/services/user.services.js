@@ -4,6 +4,7 @@ import { generateUsersMock } from "../mocks/user.mock.js";
 
 export default class UserService {
   #userRepository;
+  #userDao;
   constructor() {
     this.#userRepository = new UserRepository();
   }
@@ -50,11 +51,5 @@ export default class UserService {
 
   async deleteManyById(data) {
     return await this.#userRepository.deleteManyById(data);
-  }
-
-  async createMocks() {
-    const users = generateUsersMock(10);
-    const usersDb = await this.userDao.saveMany(users);
-    return usersDb;
   }
 }

@@ -26,6 +26,11 @@ export default class PetServices {
     return await this.#petRepository.save(data);
   }
 
+  async insertMany(data){
+    const pets = await this.#petRepository.insertMany(data)
+    return pets;
+}
+
   async updateOneById(id, data) {
   
     const pet = await this.#petRepository.getOneById(id);

@@ -55,6 +55,13 @@ export default class PetRepository{
         return formatedPet;
     };
 
+    async insertMany(data) {
+        const pets = await this.#petDAO.insertMany(data);
+        const response = pets.map(p => this.#petDTO.model(p))
+        return response;
+    };
+
+
     async deleteOneById(id){
         const pet = await this.getOneById(id);
         if(!pet) throw new Error(NOT_FOUND_ID);

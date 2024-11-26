@@ -7,10 +7,11 @@ import { generatePetsMock } from "../mocks/pet.mock.js";
 const userServices = new UserServices();
 const usersMocksRouter = Router();
 
-usersMocksRouter.get("/mockingusers", async (req, res, next) => {
+usersMocksRouter.post("/mockingusers", async (req, res, next) => {
   try {
-    const users = generateUsersMock(50);
-    const response = await userServices.createMany(users);
+    const users = await generateUsersMock(5);
+    console.log(users);
+    const response = await userServices.insertMany(users)
 
     res.status(201).json({ status: "ok", payload: response });
   } catch (error) {
@@ -24,10 +25,10 @@ export default usersMocksRouter;
 const petServices = new PetServices();
 const petsMocksRouter = Router();
 
-petsMocksRouter.get("/mockingpets", async (req, res, next) => {
+petsMocksRouter.post("/mockingpets", async (req, res, next) => {
   try {
-    const pets = generatePetsMock(50);
-    const response = await petServices.createMany(pets);
+    const pets = await generatePetsMock(5);
+    const response = await petServices.insertMany(pets);
     res.status(201).json({ status: "ok", payload: response });
   } catch (error) {
     next(error);
