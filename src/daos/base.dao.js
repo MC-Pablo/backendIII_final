@@ -24,7 +24,7 @@ export default class BaseDAO {
   }
 
   async insertMany(data) {
-    const response = this.#model.insertMany(data);
+    const response = await this.#model.insertMany(data);
     return response;
   }
 

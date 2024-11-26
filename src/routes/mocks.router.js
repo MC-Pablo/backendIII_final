@@ -10,7 +10,6 @@ const usersMocksRouter = Router();
 usersMocksRouter.post("/mockingusers", async (req, res, next) => {
   try {
     const users = await generateUsersMock(5);
-    console.log(users);
     const response = await userServices.insertMany(users)
 
     res.status(201).json({ status: "ok", payload: response });

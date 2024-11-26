@@ -52,6 +52,10 @@ Comprueba que al eliminar la adopción se modifique la mascota
 Elimina la mascota
 Elimina el usuario
 
+*MOCKIN API*
+La API cuenta con una funcionalidad para la creacio de mocks: tanto para "users" como para "pets".
+Dentro de la carpeta ROUTES encontraremos el archivo "mocks.router.js" con los correspondientes endpoints.
+
 *VARIABLES DE ENTORNO*
 
 Se adjunta archivo ".example.env" con las variables a completar para el correcto funcionamiento.
