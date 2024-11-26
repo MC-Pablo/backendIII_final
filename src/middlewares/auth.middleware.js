@@ -3,6 +3,10 @@ import passport from "passport";
 import { ADMIN } from "../constants/roles.constant.js";
 import { ERROR_NOT_HAVE_PRIVILEGES } from "../constants/messages.constant.js";
 import { JWT_TRANSLATIONS } from "../constants/messages.constant.js";
+import UserService from "../services/user.services.js";
+
+
+const userService = new UserService;
 
 // Middleware para generar un token de acceso para un usuario autenticado
 export const generateToken = async (req, res, next) => {
@@ -16,7 +20,7 @@ export const generateToken = async (req, res, next) => {
     );
 
     // Genera un token JWT que expira en 2 horas
-    const token = jwt.sign({ id: userFound.id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ id: userFound.id }, process.env.KEY, {
       expiresIn: "2h",
     });
 

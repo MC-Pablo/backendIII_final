@@ -10,24 +10,24 @@ export default class SessionsController {
 
   register = async (req, res, next) => {
     try {
-      const { first_name, last_name, email, password } = req.body;
-      if (!first_name || !last_name || !email || !password)
+      const { name, surname, email, password } = req.body;
+      if (!name || !surname || !email || !password)
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
-      const exists = await this.userServices.getUserByEmail(email);
+      const exists = await this.userServices.findOneByEmailAndPassword(email);
       if (exists)
         return res
           .status(400)
           .send({ status: "error", error: "User already exists" });
       const hashedPassword = await createHash(password);
       const user = {
-        first_name,
-        last_name,
+        name,
+        surname,
         email,
         password: hashedPassword,
       };
-      let result = await this.userServices.create(user);
+      let result = await this.userServices.createUser(user);
       res.send({ status: "success", payload: result._id });
     } catch (error) {
       next(error);
@@ -81,7 +81,7 @@ export default class SessionsController {
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
-      const user = await this.userServices.getUserByEmail(email);
+      const user = await this.userServices.findOneByEmailAndPassword(email);
       if (!user)
         return res
           .status(404)

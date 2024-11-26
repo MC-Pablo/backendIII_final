@@ -1,10 +1,11 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import UserService from "../services/user.service.js";
+import UserService from "../services/user.services.js";
 
 const userService = new UserService();
 export const config = (server) => {
     // Opciones para la estrategia JWT basada en el encab
+    
     const jwtHeaderOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.KEY,
