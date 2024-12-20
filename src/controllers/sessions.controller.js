@@ -6,20 +6,23 @@ import UserServices from "../services/user.services.js";
 export default class SessionsController {
   constructor() {
     this.userServices = new UserServices();
+    this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
+    this.unprotectedCurrent = this.unprotectedCurrent.bind(this);
+    this.unprotectedLogin = this.unprotectedLogin.bind(this);
+    
   }
 
   register = async (req, res, next) => {
     try {
+      
       const { name, surname, email, password } = req.body;
+      
       if (!name || !surname || !email || !password)
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
-      const exists = await this.userServices.findOneByEmailAndPassword(email);
-      if (exists)
-        return res
-          .status(400)
-          .send({ status: "error", error: "User already exists" });
+      
       const hashedPassword = await createHash(password);
       const user = {
         name,
@@ -27,8 +30,9 @@ export default class SessionsController {
         email,
         password: hashedPassword,
       };
+     
       let result = await this.userServices.createUser(user);
-      res.send({ status: "success", payload: result._id });
+      res.send({ status: "success", payload: result });
     } catch (error) {
       next(error);
     }
@@ -50,7 +54,7 @@ export default class SessionsController {
           .status(404)
           .send({ status: "error", error: "User doesn't exist" });
       const validPassword = await isValidPassword(user, password);
-      if (validPassword)
+      if (!validPassword)
         return res
           .status(400)
           .send({ status: "error", error: "Incorrect password" });

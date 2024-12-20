@@ -13,6 +13,7 @@ export default class UserRepository {
     const factory = new FactoryDAO();
     this.#userDAO = factory.userDAO();
     this.#userDTO = new UserDTO();
+    this.findOneByEmailAndPassword = this.findOneByEmailAndPassword.bind(this);
   }
 
   async getAll(params) {
@@ -33,7 +34,7 @@ export default class UserRepository {
     const filters = $and.length > 0 ? { $and } : {};
 
     const users = await this.#userDAO.getAll(filters, params);
-  
+
     const formatedUsers = users?.docs?.map((user) => this.#userDTO.model(user));
 
     users.docs = formatedUsers;
@@ -45,13 +46,18 @@ export default class UserRepository {
     return this.#userDTO.model(user);
   }
   async findOneByEmailAndPassword(email, password) {
+    console.log("repo:", password);
     const user = await this.#userDAO.findOneByCriteria({ email });
+
     if (!user) {
       throw new Error(NOT_FOUND_CREDENTIALS);
     }
     const hash = user.password;
     if (!isValidPassword(password, hash)) {
       throw new Error(NOT_FOUND_CREDENTIALS);
+    }
+    if (!user.password) {
+      throw new Error("repo: No se encontró la contraseña del usuario");
     }
     return this.#userDTO.model(user);
   }
@@ -63,11 +69,8 @@ export default class UserRepository {
   }
 
   async save(data) {
-   
     const formatedData = this.#userDTO.data(data);
-
     const user = await this.#userDAO.save(formatedData);
-    
 
     return this.#userDTO.model(user);
   }

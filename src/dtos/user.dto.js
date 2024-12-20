@@ -1,18 +1,22 @@
 import { createHash } from "../utils/security.js";
 
 export class UserDTO {
+
   model(user) {
+    
     return {
       id: user._id || user.id,
       name: user.name,
       surname: user.surname,
       email: user.email,
+      password: user.password ? createHash(user.password) : null,
       roles: user.roles,
       pets: user.pets,
     };
   }
 
   data(data) {
+    
     return {
       id: data?.id || null,
       name: data.name,

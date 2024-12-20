@@ -38,6 +38,7 @@ export default class BaseDAO {
   }
 
   async findOneByCriteria(criteria) {
+    
     return await this.#model.find(criteria);
   }
 
@@ -91,7 +92,7 @@ export default class BaseDAO {
     }
 
     const key = `${field}-${op}`;
-console.log (key)
+
     switch (key) {
       case "pets-add":
         object.pets.push(data.pid);

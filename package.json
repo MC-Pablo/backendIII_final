@@ -20,7 +20,7 @@
     "url": "https://github.com/MC-Pablo/backend_III_entregaFinal/issues"
   },
   "dependencies": {
-    
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",

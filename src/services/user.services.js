@@ -7,6 +7,8 @@ export default class UserService {
   #userDao;
   constructor() {
     this.#userRepository = new UserRepository();
+    this.findOneByEmailAndPassword = this.findOneByEmailAndPassword.bind(this)
+
   }
 
   async getAll(params) {
@@ -22,6 +24,7 @@ export default class UserService {
   }
 
   async findOneByEmailAndPassword(email, password) {
+   
     const user = await this.#userRepository.findOneByEmailAndPassword(
       email,
       password

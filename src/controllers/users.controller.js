@@ -1,14 +1,16 @@
-import UserService from "../services/user.services.js"
+import UserService from "../services/user.services.js";
+import { generateUsersMock } from "../mocks/user.mock.js";
 
 export default class UserControllers {
-  #userService
+  #userService;
   constructor() {
     this.#userService = new UserService();
   }
 
   createUserMock = async (req, res, next) => {
     try {
-      const mocksUsers = await this.#userService.createMocks();
+      const manyUsers = await generateUsersMock(5);
+      const mocksUsers = await this.#userService.insertMany(manyUsers);
       res.status(201).send({ status: "success", payload: mocksUsers });
     } catch (error) {
       next(error);
@@ -24,14 +26,14 @@ export default class UserControllers {
     }
   };
 
-  getUserById = async (req, res, next) => {
+  getUserById = async (req, res) => {
     try {
       const userId = req.params.uid;
       const user = await this.#userService.findOneById(userId);
 
       res.status(200).send({ status: "success", payload: user });
     } catch (error) {
-      next(error);
+      res.status(404).send({ status: "id not found" });
     }
   };
 
@@ -64,7 +66,6 @@ export default class UserControllers {
   };
   createUser = async (req, res, next) => {
     try {
-      const newUser = req.body;
       const user = await this.#userService.createUser(req.body);
       if (!user) throw new Error("Faltan datos");
       res

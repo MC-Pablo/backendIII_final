@@ -1,26 +1,43 @@
 import { PetDTO } from "../dtos/pet.dto.js";
 import __dirname from "../utils/index.js";
 import PetServices from "../services/pet.services.js";
+import { generatePetsMock } from "../mocks/pet.mock.js";
 
 export default class PetController {
   #petServices;
   constructor() {
-   
     this.#petServices = new PetServices();
-    this.getAllPets = this.getAllPets.bind(this); this.createPet = this.createPet.bind(this); this.getOneById = this.getOneById.bind(this); this.updateOneById = this.updateOneById.bind(this); this.deleteOneById = this.deleteOneById.bind(this); this.createPetWithImage = this.createPetWithImage.bind(this)
-    
+    this.getAllPets = this.getAllPets.bind(this);
+    this.createPet = this.createPet.bind(this);
+    this.getOneById = this.getOneById.bind(this);
+    this.updateOneById = this.updateOneById.bind(this);
+    this.deleteOneById = this.deleteOneById.bind(this);
+    this.createPetWithImage = this.createPetWithImage.bind(this);
+    this.createPetMock = this.createPetMock.bind(this);
+  }
+
+  async createPetMock(req, res, next) {
+    try {
+      const manyPets = await generatePetsMock(5);
+      const newPets = await this.#petServices.insertMany(manyPets);
+      res
+        .status(201)
+        .send({
+          status: "success",
+          payload: newPets,
+          message: "Nuevas mock-pets creadas",
+        });
+    } catch (error) {
+      next(error);
+    }
   }
 
   async getAllPets(req, res, next) {
-  
     try {
       const pets = await this.#petServices.getAll(req.params);
-     
-     
+
       res.status(200).send({ status: "success", payload: pets });
-     
     } catch (error) {
-  
       next(error);
     }
   }
@@ -74,14 +91,14 @@ export default class PetController {
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
-     
+
       const pet = PetDTO.getPetInputFrom({
         name,
         specie,
         birthDate,
         image: `${__dirname}/../public/img/${file.filename}`,
       });
-      
+
       const result = await this.#petServices.createPet(pet);
       res.status(201).send({ status: "success", payload: result });
     } catch (error) {
